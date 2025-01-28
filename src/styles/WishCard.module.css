@@ -1,0 +1,20 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 4px;
+  /* background-color: #3a3a3c; */
+  border: 1px solid #3a3a3c;
+  transition: background-color 0.3s;
+  margin-top: 12px;
+}
+
+.cardcontent {
+  flex-grow: 1;
+  margin-right: 4px;
+}
+
+.cardicon {
+  flex-shrink: 1;
+}
