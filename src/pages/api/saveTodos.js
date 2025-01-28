@@ -28,6 +28,8 @@ export default async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
 
     const spreadsheetId = process.env.GOOGLE_SPREADSHEET_ID;
+
+    console.log('spreadsheetId', spreadsheetId)
     const range = 'hpny2025'; // Replace with your sheet name and range
 
     // Chuẩn bị dữ liệu để lưu

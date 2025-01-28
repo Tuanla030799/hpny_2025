@@ -45,7 +45,7 @@ const Wish = () => {
           </StoreLayout>
         </main>
       </div>
-      {/* <Fireworks /> */}
+      <Fireworks />
     </>
   )
 }
