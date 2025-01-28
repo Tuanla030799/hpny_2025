@@ -28,9 +28,6 @@ export default async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
 
     const spreadsheetId = process.env.GOOGLE_SPREADSHEET_ID;
-
-    console.log("GOOGLE_PRIVATE_KEY:", process.env.GOOGLE_PRIVATE_KEY ? "EXISTS" : "NOT FOUND");
-    console.log("GOOGLE_PRIVATE_KEY Raw:", process.env.GOOGLE_PRIVATE_KEY);
     
     const range = 'hpny2025'; // Replace with your sheet name and range
 

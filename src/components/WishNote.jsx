@@ -13,6 +13,7 @@ const WishNote = () => {
   const [wish, setWish] = useState('');
   const [isSentWished, setIsSentWished] = useState(false);
   const [isShowQRCode, setIsShowQRCode] = useState(false);
+  const [ isLoading, setIsLoading] = useState(false);
   const { todos } = state;
 
   const addWish = () => {
@@ -26,6 +27,7 @@ const WishNote = () => {
   const saveWish = async () => {
     if (!todos.length) return;
     try {
+      setIsLoading(true);
       const response = await fetch('/api/saveTodos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -33,12 +35,19 @@ const WishNote = () => {
       });
 
       await response.json();
+      setIsLoading(false);
       dispatch(clearTodoInput());
       setIsSentWished(true);
     } catch (error) {
       console.error('Error saving todos:', error);
     }
   }
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      addWish();
+    }
+  };
 
   if (isSentWished) {
     if (isShowQRCode) {
@@ -70,7 +79,7 @@ const WishNote = () => {
       <h4>Hãy viết gì đó vào năm 2025 nhé ( • _ • ) </h4>
 
       <div className={Wish.act}>
-        <input value={wish} placeholder='Enter wish...' onChange={e => setWish(e.target.value)} />
+        <input value={wish} placeholder='Enter wish...' onChange={e => setWish(e.target.value)} onKeyDown={handleKeyDown}/>
         <button className={`${Buttons.button} ${Buttons.primary}`} onClick={addWish}>Add wish</button>
       </div>
       <ol>
@@ -83,8 +92,8 @@ const WishNote = () => {
 
       {
         todos.length > 0 && (<div className={Wish.sent}>
-          <button className={`${Buttons.button} ${Buttons.secondary}`} onClick={saveWish}>
-            <span>Sent wishes</span>
+          <button className={`${Buttons.button} ${Buttons.secondary}`} onClick={saveWish} disabled={isLoading}>
+            {isLoading ? 'Sending...' : 'Send wishes'}
           </button>
         </div>)
       }
